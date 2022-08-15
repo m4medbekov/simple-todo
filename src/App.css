@@ -40,3 +40,7 @@
 .ant-space-item {
   width: 100%;
 }
+
+.ant-layout-sider-light {
+  flex: 0 !important;
+}
