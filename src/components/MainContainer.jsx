@@ -33,7 +33,7 @@ const MainContainer = () => {
           <Sidebar windowWith={ windowWith } />
           <ContentBody windowWith={ windowWith } todoList={ todoList } />
         </Layout>
-        <FooterEnd />
+        <FooterEnd windowWith={ windowWith } />
       </Layout>
     </>
   )
