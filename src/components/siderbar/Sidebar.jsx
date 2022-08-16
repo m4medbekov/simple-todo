@@ -12,17 +12,23 @@ const Sidebar = ({ windowWith }) => {
   const notes = useSelector(state => state.notes)
   const dispatch = useDispatch()
 
-  const onNoteTextChanged = (event) => setNoteText(event.target.value) 
+  useEffect(() => {
+    localStorage.getItem('notes') && dispatch(addNotes(JSON.parse(localStorage.notes)))
+  }, [dispatch])
+
+  const onNoteTextChanged = (event) => setNoteText(event.target.value)
 
   const onAddNoteClicked = () => {
     if (noteText) {
-      dispatch(addNote({
+      const note = {
         id: notes.notes.length, 
         checked: false, 
         text: noteText
-      }))
+      }
 
-      localStorage.setItem('notes', JSON.stringify(notes.notes))
+      dispatch(addNote(note))
+
+      localStorage.setItem('notes', JSON.stringify([...notes.notes, note]))
     }
   }
 
