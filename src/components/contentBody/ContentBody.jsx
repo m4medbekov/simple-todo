@@ -2,11 +2,11 @@ import { Checkbox } from 'antd'
 import { Content } from 'antd/lib/layout/layout'
 import React from 'react'
 
-const ContentBody = ({ windowWith, todoList }) => {
+const ContentBody = ({ windowWith, notes }) => {
   return (
     <Content style={{ padding: "8px 8px 0 8px", backgroundColor: "#fff", width: windowWith <= 1024 ? "100%" : 0 }}>
       <ul style={{ listStyle: "none", padding: 0, height: "none", overflow: windowWith <= 1024 ? "scroll" : "none" }}>
-        {todoList.map(element => {
+        {notes.map(element => {
           return (
             <li key={ element.id } style={{ 
               backgroundColor: "#f0f2f5",

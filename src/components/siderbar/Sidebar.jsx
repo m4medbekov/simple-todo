@@ -1,7 +1,31 @@
-import { Layout, Input, Button, Space, Row } from 'antd';
+import { Layout, Input, Button, Space, Row, Form } from 'antd';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addNote, addNotes } from '../../store/notesSlice';
+
 const { Sider } = Layout;
 
 const Sidebar = ({ windowWith }) => {
+
+  const [noteText, setNoteText] = useState('')
+
+  const notes = useSelector(state => state.notes)
+  const dispatch = useDispatch()
+
+  const onNoteTextChanged = (event) => setNoteText(event.target.value) 
+
+  const onAddNoteClicked = () => {
+    if (noteText) {
+      dispatch(addNote({
+        id: notes.notes.length, 
+        checked: false, 
+        text: noteText
+      }))
+
+      localStorage.setItem('notes', JSON.stringify(notes.notes))
+    }
+  }
+
   return (
     <Sider 
         theme='light'
@@ -12,15 +36,17 @@ const Sidebar = ({ windowWith }) => {
         }}
       >
       <Space direction='vertical' style={{ width: "100%" }}>
-        <Row>
-          <Input placeholder="Basic usage" />
-        </Row>
-        <Row>
-          <Space style={{ width: "100%" }}>
-            <Button style={{ width: "100%" }}>Add</Button>
+        <Form style={{ width: "100%" }}>
+          <Input 
+            placeholder="Type note" 
+            value={noteText} 
+            onChange={onNoteTextChanged} 
+          />
+          <Space style={{ width: "100%", marginTop: "8px" }}>
+            <Button onClick={onAddNoteClicked} style={{ width: "100%" }}>Add</Button>
             <Button style={{ width: "100%" }}>Clear</Button>
           </Space>
-        </Row>
+        </Form>
       </Space>
     </Sider>
   )
