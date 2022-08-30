@@ -1,35 +1,14 @@
-import { Layout, Input, Button, Space, Row, Form } from 'antd';
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addNote, addNotes } from '../../store/notesSlice';
+import { Layout, Input, Button, Space, Form } from 'antd';
+import { useState } from 'react';
 
 const { Sider } = Layout;
 
 const Sidebar = ({ windowWith }) => {
 
-  const [noteText, setNoteText] = useState('')
+  const [newNote, setNewNote] = useState('')
 
-  const notes = useSelector(state => state.notes)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    localStorage.getItem('notes') && dispatch(addNotes(JSON.parse(localStorage.notes)))
-  }, [dispatch])
-
-  const onNoteTextChanged = (event) => setNoteText(event.target.value)
-
-  const onAddNoteClicked = () => {
-    if (noteText) {
-      const note = {
-        id: notes.notes.length, 
-        checked: false, 
-        text: noteText
-      }
-
-      dispatch(addNote(note))
-
-      localStorage.setItem('notes', JSON.stringify([...notes.notes, note]))
-    }
+  const onNewNoteChange = (e) => {
+    setNewNote(e.target.value)
   }
 
   return (
@@ -44,12 +23,12 @@ const Sidebar = ({ windowWith }) => {
       <Space direction='vertical' style={{ width: "100%" }}>
         <Form style={{ width: "100%" }}>
           <Input 
-            placeholder="Type note" 
-            value={noteText} 
-            onChange={onNoteTextChanged} 
+            placeholder="Type note"
+            value={newNote}
+            onChange={onNewNoteChange}
           />
           <Space style={{ width: "100%", marginTop: "8px" }}>
-            <Button onClick={onAddNoteClicked} style={{ width: "100%" }}>Add</Button>
+            <Button style={{ width: "100%" }}>Add</Button>
             <Button style={{ width: "100%" }}>Clear</Button>
           </Space>
         </Form>

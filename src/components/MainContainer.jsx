@@ -4,11 +4,8 @@ import ContentBody from './contentBody/ContentBody';
 import FooterEnd from './footerEnd/FooterEnd';
 import HeaderTitle from './header/Header';
 import Sidebar from './siderbar/Sidebar'; 
-import { useSelector } from 'react-redux';
 
 const MainContainer = () => {
-
-  const notes = useSelector(state => state.notes)
 
   const [windowWith, setWindowWidth] = useState(window.outerWidth);
 
@@ -29,7 +26,7 @@ const MainContainer = () => {
         <HeaderTitle />
         <Layout style={{ flexDirection: windowWith <= 1024 ? "column" : "row" }}>
           <Sidebar windowWith={ windowWith } />
-          <ContentBody windowWith={ windowWith } notes={ notes.notes } />
+          <ContentBody windowWith={ windowWith } notes={ notes } />
         </Layout>
         <FooterEnd windowWith={ windowWith } />
       </Layout>

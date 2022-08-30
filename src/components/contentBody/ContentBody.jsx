@@ -3,10 +3,11 @@ import { Content } from 'antd/lib/layout/layout'
 import React from 'react'
 
 const ContentBody = ({ windowWith, notes }) => {
+
   return (
     <Content style={{ padding: "8px 8px 0 8px", backgroundColor: "#fff", width: windowWith <= 1024 ? "100%" : 0 }}>
       <ul style={{ listStyle: "none", padding: 0, height: "none", overflow: windowWith <= 1024 ? "scroll" : "none" }}>
-        {notes.map(element => {
+        {notes.map((element, id) => {
           return (
             <li key={ element.id } style={{ 
               backgroundColor: "#f0f2f5",
@@ -19,7 +20,11 @@ const ContentBody = ({ windowWith, notes }) => {
               justifyContent: "space-between"
               }}
             >
-              <Checkbox checked={element.checked} /><span style={{ width: "100%", marginLeft: "8px" }}>{element.text}</span><span>❌</span>
+              <Checkbox checked={element.checked} />
+              <span style={{ width: "100%", marginLeft: "8px" }}>
+                {element.text}
+              </span>
+              <span>❌</span>
             </li>
           )
         })}
